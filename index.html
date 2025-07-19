@@ -218,21 +218,28 @@
             overflow: hidden;
             border-radius: 0.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            height: 450px; /* Fixed height for the carousel container */
         }
 
         .carousel-slide {
+            position: absolute; /* Position slides absolutely for overlay */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             display: none; /* Hidden by default */
-            width: 100%;
-            height: auto;
-        }
-        .carousel-slide img {
-            width: 100%;
-            height: auto;
-            display: block; /* Remove extra space below image */
-            object-fit: contain; /* Ensure image fits within bounds */
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* Smooth fade transition */
         }
         .carousel-slide.active {
             display: block;
+            opacity: 1;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; /* Ensures image covers the area without resizing the container */
         }
     </style>
 </head>
@@ -269,7 +276,10 @@
 
     <!-- Hero Section -->
     <header class="relative h-screen flex items-center justify-center text-center bg-nl-darkblue text-white overflow-hidden p-4">
-        <div class="absolute inset-0 opacity-20" style="background-image: url('https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background'); background-size: cover; background-position: center;"></div>
+        <div id="hero-background-carousel" class="absolute inset-0">
+            <!-- Background images will be injected here by JavaScript -->
+        </div>
+        <div class="absolute inset-0 bg-nl-darkblue opacity-40"></div> <!-- Dark overlay for text readability -->
         <div class="relative z-10 max-w-5xl mx-auto">
             <img
                 src="https://placehold.co/180x180/00a8e8/ffffff?text=MJ"
@@ -498,7 +508,13 @@
                 "Experienced in stakeholder management, team development, and sustainability planning"
             ],
             imageUrl: "https://placehold.co/180x180/00a8e8/ffffff?text=MJ", // Placeholder image URL for general use
-            heroBgImage: "https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background", // Hero background from sample site
+            heroBackgroundImages: [ // Array of images for hero background carousel
+                "1658729837323.jpg",
+                "1726024592033.jpg",
+                "image2.jpg",
+                "image0.jpg",
+                "image.jpg"
+            ],
             aboutImage1: "https://placehold.co/600x400/00a8e8/ffffff?text=Leadership+Vision", // About section image 1
             aboutImage2: "https://placehold.co/600x400/1a2b4b/ffffff?text=Data+Driven", // About section image 2
             experience: [
@@ -545,7 +561,6 @@
                     description: "Developed syllabi for entry level composition course and ensured that it met college and department standards. Ran a writer's workshop for freshman and sophomore college students. Advised students about which classes to take and how to achieve their academic and professional goals. Kept abreast of innovative field changes."
                 }
             ],
-            // Removed education, volunteering, and honorsAndAwards from profileData
             skills: [
                 "Community Engagement", "Leadership Development", "Organizational Leadership", "Leadership",
                 "Operational Efficiency", "Communication", "Strategic Planning", "Budget Management",
@@ -570,11 +585,11 @@
                 }
             ],
             presentations: [
-                "presentation/1651438538423.jpg", // 1686862630748.jpg
-                "presentation/1667568495326.jpg", // 1667568495326.jpg
-                "presentation/1667568495326.jpg", // 1666153779529.jpg
-                "presentation/1686862630748.jpg", // 1651438538423.jpg
-                "presentation/1744463329735.jpg"  // 1744463329735.jpg
+                "presentation/1651438538423.jpg",
+                "presentation/1667568495326.jpg",
+                "presentation/1666153779529.jpg",
+                "presentation/1651438538423.jpg",
+                "presentation/1744463329735.jpg"
             ],
             contact: {
                 linkedin: "https://www.linkedin.com/in/machion-jackson-79624224/",
@@ -582,10 +597,44 @@
             }
         };
 
-        let currentSlide = 0;
-        let slideInterval;
+        let currentHeroSlide = 0;
+        let heroSlideInterval;
+        const heroBackgroundImages = profileData.heroBackgroundImages;
 
-        function showSlide(index) {
+        function showHeroSlide(index) {
+            const heroCarousel = document.getElementById('hero-background-carousel');
+            if (!heroCarousel || heroBackgroundImages.length === 0) return;
+
+            // Clear existing background images
+            heroCarousel.innerHTML = '';
+
+            // Create new image element
+            const img = document.createElement('img');
+            img.src = heroBackgroundImages[index];
+            img.alt = "Hero Background";
+            img.className = 'absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out';
+            img.onerror = function() { this.src = 'https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background'; }; // Fallback
+            heroCarousel.appendChild(img);
+        }
+
+        function nextHeroSlide() {
+            if (heroBackgroundImages.length === 0) return;
+            currentHeroSlide = (currentHeroSlide + 1) % heroBackgroundImages.length;
+            showHeroSlide(currentHeroSlide);
+        }
+
+        function startHeroCarousel() {
+            if (heroBackgroundImages.length <= 1) return; // No need for carousel if 0 or 1 image
+            if (heroSlideInterval) clearInterval(heroSlideInterval);
+            showHeroSlide(currentHeroSlide); // Show initial slide
+            heroSlideInterval = setInterval(nextHeroSlide, 5000); // Change image every 5 seconds
+        }
+
+
+        let currentPresentationSlide = 0;
+        let presentationSlideInterval;
+
+        function showPresentationSlide(index) {
             const slides = document.querySelectorAll('#presentation-carousel .carousel-slide');
             if (slides.length === 0) return;
 
@@ -597,26 +646,25 @@
             });
         }
 
-        function nextSlide() {
+        function nextPresentationSlide() {
             const slides = document.querySelectorAll('#presentation-carousel .carousel-slide');
             if (slides.length === 0) return;
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
+            currentPresentationSlide = (currentPresentationSlide + 1) % slides.length;
+            showPresentationSlide(currentPresentationSlide);
         }
 
-        function startCarousel() {
+        function startPresentationCarousel() {
             // Clear any existing interval to prevent multiple carousels running
-            if (slideInterval) clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 3000); // Change image every 3 seconds
+            if (presentationSlideInterval) clearInterval(presentationSlideInterval);
+            if (document.querySelectorAll('#presentation-carousel .carousel-slide').length > 1) {
+                presentationSlideInterval = setInterval(nextPresentationSlide, 3000); // Change image every 3 seconds
+            }
         }
 
         // Function to populate sections with data
         function populateSections() {
-            // Hero Background Image
-            const heroHeader = document.querySelector('header');
-            if (heroHeader && profileData.heroBgImage) {
-                heroHeader.style.backgroundImage = `url('${profileData.heroBgImage}')`;
-            }
+            // Start Hero Background Carousel
+            startHeroCarousel();
 
             // Signature Offerings
             const offeringsContent = document.getElementById('offerings-content');
@@ -704,8 +752,8 @@
                     div.innerHTML = `<img src="${imageSrc}" alt="Presentation Slide" onerror="this.onerror=null;this.src='https://placehold.co/800x450/cccccc/333333?text=Image+Not+Found';">`;
                     presentationCarousel.appendChild(div);
                 });
-                showSlide(currentSlide); // Show the first slide
-                startCarousel(); // Start cycling through slides
+                showPresentationSlide(currentPresentationSlide); // Show the first slide
+                startPresentationCarousel(); // Start cycling through slides
             }
 
             // Render Lucide icons after content is injected
