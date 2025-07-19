@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machion Jackson - Strategic Operations Expert</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Montserrat (for headings), Open Sans (for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Tailwind CSS Configuration */
+        :root {
+            --color-nl-darkblue: #1a2b4b;
+            --color-nl-lightblue: #00a8e8;
+            --color-nl-orange: #ff7f00;
+            --color-nl-gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            background-color: var(--color-nl-gray);
+            color: var(--color-nl-darkblue);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Custom animation classes for fade-in on scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero section specific animations */
+        @keyframes slideInFromTop {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in-top { animation: slideInFromTop 0.8s ease-out forwards; }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        /* Custom button styles to match New Leaders */
+        .btn-primary-nl {
+            background-color: var(--color-nl-lightblue);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary-nl:hover {
+            background-color: #008cc9; /* slightly darker blue */
+            transform: translateY(-2px);
+        }
+        .btn-secondary-nl {
+            background-color: transparent;
+            color: var(--color-nl-lightblue);
+            border: 2px solid var(--color-nl-lightblue);
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn-secondary-nl:hover {
+            background-color: var(--color-nl-lightblue);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-orange-nl {
+            background-color: var(--color-nl-orange);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-orange-nl:hover {
+            background-color: #e66a00; /* slightly darker orange */
+            transform: translateY(-2px);
+        }
+
+        /* Specific styles for sections */
+        .section-header {
+            font-size: 2.5rem; /* md:text-5xl */
+            font-weight: 700;
+            color: var(--color-nl-darkblue);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .section-subheader {
+            font-size: 1.25rem; /* md:text-xl */
+            color: #4a5568; /* a darker gray */
+            max-width: 4xl;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        .text-nl-darkblue { color: var(--color-nl-darkblue); }
+        .text-nl-lightblue { color: var(--color-nl-lightblue); }
+        .bg-nl-darkblue { background-color: var(--color-nl-darkblue); }
+        .bg-nl-lightblue { background-color: var(--color-nl-lightblue); }
+        .bg-nl-orange { background-color: var(--color-nl-orange); }
+        .bg-nl-gray { background-color: var(--color-nl-gray); }
+
+        /* Custom styling for alternating sections */
+        .alternating-section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .alternating-section-content {
+                flex-direction: row;
+                align-items: center;
+                gap: 4rem;
+            }
+            .alternating-section-content.reverse {
+                flex-direction: row-reverse;
+            }
+        }
+        .alternating-section-image {
+            flex: 1;
+            min-width: 300px; /* Ensure image doesn't get too small */
+        }
+        .alternating-section-text {
+            flex: 1;
+        }
+        .alternating-section-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .whitespace-pre-line {
+            white-space: pre-line;
+        }
+
+        /* Flip Card Styles for Signature Offerings */
+        .flip-card-container {
+            perspective: 1000px; /* Gives the 3D effect */
+            width: 100%;
+            height: 250px; /* Fixed height for consistency */
+            display: flex; /* To center content within the card */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flip-card-flipper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0; /* border-gray-100 */
+        }
+
+        .flip-card-container:hover .flip-card-flipper {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .flip-card-front {
+            background-color: white;
+            color: var(--color-nl-darkblue);
+            z-index: 2;
+        }
+
+        .flip-card-back {
+            background-color: var(--color-nl-lightblue); /* Back color */
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .flip-card-back p {
+            font-size: 0.95rem; /* Adjust text size for back */
+            line-height: 1.5;
+        }
+
+        /* Carousel specific styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Adjust as needed */
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .carousel-slide {
+            display: none; /* Hidden by default */
+            width: 100%;
+            height: auto;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block; /* Remove extra space below image */
+            object-fit: contain; /* Ensure image fits within bounds */
+        }
+        .carousel-slide.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 left-0 right-0 z-50 bg-white shadow-md py-4 px-6 md:px-12 flex justify-between items-center transition-all duration-300">
+        <div class="flex items-center">
+            <a href="#" class="text-3xl font-extrabold text-nl-darkblue">MACHION JACKSON</a>
+        </div>
+        <ul class="hidden md:flex space-x-8 text-lg font-semibold text-nl-darkblue">
+            <li><a href="#about" class="hover:text-nl-lightblue transition-colors duration-200">About</a></li>
+            <li><a href="#offerings" class="hover:text-nl-lightblue transition-colors duration-200">Offerings</a></li>
+            <li><a href="#experience" class="hover:text-nl-lightblue transition-colors duration-200">Experience</a></li>
+            <li><a href="#presentations" class="hover:text-nl-lightblue transition-colors duration-200">Presentations</a></li>
+            <li><a href="#contact" class="hover:text-nl-lightblue transition-colors duration-200">Contact</a></li>
+        </ul>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-nl-darkblue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-nl-lightblue">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center space-y-8 text-2xl font-semibold text-nl-darkblue hidden md:hidden">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 p-2 rounded-md text-nl-darkblue hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-nl-lightblue">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#about" class="hover:text-nl-lightblue transition-colors duration-200" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+        <a href="#offerings" class="hover:text-nl-lightblue transition-colors duration-200" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Offerings</a>
+        <a href="#experience" class="hover:text-nl-lightblue transition-colors duration-200" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Experience</a>
+        <a href="#presentations" class="hover:text-nl-lightblue transition-colors duration-200" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Presentations</a>
+        <a href="#contact" class="hover:text-nl-lightblue transition-colors duration-200" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen flex items-center justify-center text-center bg-nl-darkblue text-white overflow-hidden p-4">
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background'); background-size: cover; background-position: center;"></div>
+        <div class="relative z-10 max-w-5xl mx-auto">
+            <img
+                src="https://placehold.co/180x180/00a8e8/ffffff?text=MJ"
+                alt="Machion Jackson Profile"
+                class="w-40 h-40 md:w-48 md:h-48 rounded-full mx-auto mb-8 shadow-xl border-4 border-white object-cover animate-slide-in-top delay-300"
+                onerror="this.onerror=null;this.src='https://placehold.co/180x180/00a8e8/ffffff?text=Profile';"
+            >
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-4 animate-slide-in-top">
+                Machion Jackson, M.Ed.
+            </h1>
+            <p class="text-xl sm:text-2xl md:text-3xl font-medium mb-8 animate-slide-in-top delay-100">
+                Deputy Superintendent - Operations | Strategist • Educator • Leader
+            </p>
+            <a
+                href="#offerings"
+                class="inline-flex items-center btn-primary-nl text-lg animate-slide-in-top delay-200"
+            >
+                Explore My Offerings
+                <i data-lucide="arrow-right" class="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"></i>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-white fade-in-section">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-header">About Machion Jackson</h2>
+                <p class="section-subheader">
+                    At the helm of Detroit Public Schools' operations, my focus lies in steering strategic planning, direction, and supervision across departments critical to our educational mission.
+                </p>
+                <div class="alternating-section-content">
+                    <div class="alternating-section-text">
+                        <h3 class="text-3xl font-bold text-nl-darkblue mb-4">My Philosophy & Impact</h3>
+                        <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                            The responsibility for managing a general operating budget of $170 million and capital budgets totaling $823 million reflects my expertise in budget management and fiscal oversight. With a tenure that spans over five and a half years in leadership roles, my approach to fostering collaborative problem solving and process enhancement has been pivotal.
+                        </p>
+                        <p class="text-lg leading-relaxed text-gray-700">
+                            Our team's efforts in community engagement and consensus building have empowered stakeholders, driving the district's vision for high-performing educational environments. My approach blends strategic foresight with meticulous execution, ensuring projects not only meet but exceed expectations. I thrive in dynamic environments where I can leverage my leadership skills to drive innovation and achieve measurable results.
+                        </p>
+                    </div>
+                    <div class="alternating-section-image">
+                        <img src="https://placehold.co/600x400/00a8e8/ffffff?text=Leadership+Vision" alt="Leadership Vision">
+                    </div>
+                </div>
+                <div class="alternating-section-content reverse mt-16">
+                    <div class="alternating-section-text">
+                        <h3 class="text-3xl font-bold text-nl-darkblue mb-4">What I Do & By the Numbers</h3>
+                        <p class="text-lg leading-relaxed text-gray-700 mb-4">
+                            I help school districts and charter networks solve persistent operational challenges, redesign outdated systems, and align facilities, capital programs, and central services with academic outcomes.
+                        </p>
+                        <ul class="list-disc list-inside text-lg text-gray-700 space-y-2">
+                            <li>Currently lead operations for district of 106 schools, 50,000 students - 78% economically disadvantaged | 82% African American | 14% Hispanic | 1.5% Asian/Pacific Islander | 11% English Language Learners | 15% Exceptional Learners/Special Education | 7200 staff members</li>
+                            <li>Lead 8 direct reports (leadership team members) | 32 management team members | 1200 department members | annual general fund budget $212M | total capital budget $866M</li>
+                        </ul>
+                    </div>
+                    <div class="alternating-section-image">
+                        <img src="https://placehold.co/600x400/1a2b4b/ffffff?text=Data+Driven" alt="Data Driven">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signature Offerings Section -->
+        <section id="offerings" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-nl-gray fade-in-section">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="section-header">Signature Offerings</h2>
+                <p class="section-subheader">
+                    Comprehensive solutions designed to empower education leaders and transform operational challenges into opportunities for student success.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8 justify-items-center" id="offerings-content">
+                    <!-- Content will be injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Why YIE? Experience Matters! Section -->
+        <section id="why-yie" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-nl-darkblue text-white fade-in-section">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="section-header text-white">Why YIE? Experience Matters!</h2>
+                <p class="section-subheader text-gray-200">
+                    My diverse background and proven track record ensure effective, real-world solutions for complex educational challenges.
+                </p>
+                <ul class="list-disc list-inside text-lg leading-relaxed text-gray-200 space-y-3 text-left mx-auto max-w-3xl">
+                    <li>Served as a teacher, principal, board president, co-founder of CMO network, union negotiator, community engagement liaison, central office member, COO and Deputy Superintendent</li>
+                    <li>Transformed $1.5B in deferred maintenance into a $700M recovery-aligned facilities plan</li>
+                    <li>Managed more than $1B in contracts including general fund and capital budgets</li>
+                    <li>Reduced operational costs by $1M in one year through KPI and accountability redesign</li>
+                    <li>Co-founded a successful charter management organization</li>
+                    <li>Currently lead operations including Facilities/Capital Projects, Technology, School Nutrition, Transportation, Environmental Health & Safety, Warehouse & Logistics, and Real Estate for the largest school district in Michigan</li>
+                    <li>Experienced in stakeholder management, team development, and sustainability planning</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Professional Experience Section -->
+        <section id="experience" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-white fade-in-section">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-header">Professional Experience</h2>
+                <div class="space-y-12" id="experience-content">
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Projects Section -->
+        <section id="projects" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-nl-gray fade-in-section">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-header">Key Projects</h2>
+                <div class="space-y-12" id="projects-content">
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills & Expertise Section -->
+        <section id="skills" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-white fade-in-section">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-header">Skills & Expertise</h2>
+                <div class="flex flex-wrap justify-center gap-4" id="skills-content">
+                </div>
+            </div>
+        </section>
+
+        <!-- Presentations Section -->
+        <section id="presentations" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-nl-gray fade-in-section">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="section-header">Presentations</h2>
+                <p class="section-subheader">
+                    Highlights from various speaking engagements and panel discussions.
+                </p>
+                <div class="carousel-container">
+                    <div id="presentation-carousel">
+                        <!-- Images will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Let's Talk / Contact Section -->
+        <section id="contact" class="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-nl-darkblue text-white text-center fade-in-section">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Transform Your Operations?</h2>
+                <p class="text-xl md:text-2xl leading-relaxed mb-12">
+                    If you're ready to strengthen your systems, align your operations with your mission, or elevate your leadership pipeline, let's connect.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 md:gap-8">
+                    <a
+                        href="https://www.linkedin.com/in/machion-jackson-79624224/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center btn-orange-nl text-lg"
+                    >
+                        <i data-lucide="linkedin" class="mr-3 w-5 h-5"></i>
+                        Connect on LinkedIn
+                    </a>
+                    <a
+                        href="mailto:machion.jackson@example.com"
+                        class="inline-flex items-center btn-secondary-nl text-lg"
+                        style="color: white; border-color: white;"
+                    >
+                        <i data-lucide="mail" class="mr-3 w-5 h-5"></i>
+                        Email Me
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center bg-nl-darkblue text-gray-300 text-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-3xl font-extrabold text-white">MACHION JACKSON</a>
+                    <p class="mt-2 text-gray-400">Strategic Operations Expert | Education Leadership Coach</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://www.linkedin.com/in/machion-jackson-79624224/" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white transition-colors duration-200"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    <!-- Add other social media links as needed -->
+                </div>
+            </div>
+            <p>&copy; 2025 Machion Jackson. All Rights Reserved.</p>
+            <p class="mt-2 text-gray-400">Detroit, MI | machion.jackson@example.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data for Machion Jackson's profile
+        const profileData = {
+            name: "Machion Jackson",
+            title: "Deputy Superintendent - Operations Detroit Public Schools Community District Strategist • Educator • Working to Build a Better Tomorrow",
+            bio: "At the helm of Detroit Public Schools' operations, my focus lies in steering strategic planning, direction, and supervision across departments critical to our educational mission. The responsibility for managing a general operating budget of $170 million and capital budgets totaling $823 million reflects my expertise in budget management and fiscal oversight. With a tenure that spans over five and a half years in leadership roles, my approach to fostering collaborative problem solving and process enhancement has been pivotal. Our team's efforts in community engagement and consensus building have empowered stakeholders, driving the district's vision for high-performing educational environments.",
+            whatIDo: "I help school districts and charter networks solve persistent operational challenges, redesign outdated systems, and align facilities, capital programs, and central services with academic outcomes.",
+            byTheNumbers: [
+                "Currently lead operations for district of 106 schools, 50,000 students - 78% economically disadvantaged | 82% African American | 14% Hispanic | 1.5% Asian/Pacific Islander | 11% English Language Learners | 15% Exceptional Learners/Special Education | 7200 staff members",
+                "Lead 8 direct reports (leadership team members) | 32 management team members | 1200 department members | annual general fund budget $212M | total capital budget $866M"
+            ],
+            signatureOfferings: [
+                {
+                    title: "Strategic Operations Consulting",
+                    icon: "briefcase",
+                    description: "Develop operational blueprints aligned with strategic goals; Diagnose and restructure underperforming departments; Lead systems assessments and change management."
+                },
+                {
+                    title: "Leadership Coaching for Cabinet-Level Leaders",
+                    icon: "users",
+                    description: "Navigate transitions and lead with clarity; Build and coach cross-functional teams; Design staff realignment plans."
+                },
+                {
+                    title: "Systems Design & Board Training",
+                    icon: "settings",
+                    description: "Custom PD and toolkits for Boards; Strategic planning and forecasting; Manage leadership and vendor transitions including contract reviews; Succession Planning for Key Leadership Roles."
+                },
+                {
+                    title: "Capital Planning Strategy",
+                    icon: "building",
+                    description: "Facilities Master Planning + Long-Term Investment Strategy; Align operations including capital planning with academic needs through an equity-centered lens; Create small school analysis and conduct community engagement for right-sizing decisions; Create facilities condition frameworks and dashboards."
+                }
+            ],
+            whyYIE: [
+                "Served as a teacher, principal, board president, co-founder of CMO network, union negotiator, community engagement liaison, central office member, COO and Deputy Superintendent",
+                "Transformed $1.5B in deferred maintenance into a $700M recovery-aligned facilities plan",
+                "Managed more than $1B in contracts including general fund and capital budgets",
+                "Reduced operational costs by $1M in one year through KPI and accountability redesign",
+                "Co-founded a successful charter management organization",
+                "Currently lead operations including Facilities/Capital Projects, Technology, School Nutrition, Transportation, Environmental Health & Safety, Warehouse & Logistics, and Real Estate for the largest school district in Michigan",
+                "Experienced in stakeholder management, team development, and sustainability planning"
+            ],
+            imageUrl: "https://placehold.co/180x180/00a8e8/ffffff?text=MJ", // Placeholder image URL for general use
+            heroBgImage: "https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background", // Hero background from sample site
+            aboutImage1: "https://placehold.co/600x400/00a8e8/ffffff?text=Leadership+Vision", // About section image 1
+            aboutImage2: "https://placehold.co/600x400/1a2b4b/ffffff?text=Data+Driven", // About section image 2
+            experience: [
+                {
+                    title: "Deputy Superintendent - Operations",
+                    company: "Detroit Public Schools Community District",
+                    duration: "Oct 2023 - Present · 1 yr 10 mos",
+                    location: "Detroit, Michigan, United States · On-site",
+                    description: "Leading strategic planning, direction, and supervision across critical departments including Technology, Facilities, School Nutrition, Student Transportation, Environmental Health and Safety, Capital Programs, and Real Estate. This role builds upon extensive experience in improving efficiency, productivity, and accountability within the district's operational framework."
+                },
+                {
+                    title: "Assistant Superintendent - Operations",
+                    company: "Detroit Public Schools Community District",
+                    duration: "Sep 2018 - Oct 2023 · 5 yrs 1 mo", // Adjusted end date to reflect promotion
+                    location: "Detroit, Michigan",
+                    description: "Responsible for the strategic planning, organization, direction and supervision of several departments in the largest school in Michigan including: Technology, Facilities, School Nutrition, Student Transportation, Environmental Health and Safety, Capital Programs, and Real Estate. Created processes and procedures to improve efficiency, productivity, and accountability. Conducted community meetings and school-based feedback sessions for consensus building and to encourage constituents to actively participate in new school design. Responsible for general operating budget of $170 million dollars. Developed and managed capital budgets totaling $823 million dollars. Supported the initiatives of department leaders including the purchase of 10 passenger vans for special needs students to reduce contracted yellow bus expenses; renovated high school cafeterias to create a more college-like dining atmosphere, and insourced the District's warehouse services to increase productivity and reduce costs. Developed the framework for key performance indicator reports regarding the performance and contract compliance of district vendors resulting in a savings of over $1.5M in 18 months. Reduced school nutrition staff vacancies by 30% by co-developing a new staffing model supported by unions. Effectuated the transfer of new and remodeled schools and control the incorporation of recommended best practices related to the operations and maintenance of the facilities. Created an organizational model and implementation plan to serve more than 1 million meals from March to August, 2020. Restored the district's clean, safe drinking water."
+                },
+                {
+                    title: "President & CEO",
+                    company: "Yours In Education, LLC",
+                    duration: "Jan 2009 - Nov 2023 · 14 yrs 11 mos",
+                    location: "Metro Detroit Area",
+                    description: "Strategic consulting including charter school start up, grant writing, and business planning. Helped schools build sustainable, scalable, cost-efficient operational infrastructures. Guided large decisions in evaluating the alignment of policies, procedures, and routines with organizational goals and overall mission. Facilitated collaboration and problem-solving among decision-makers in matrixed environments. Provided professional development on trending evidenced proven instructional/operational strategies."
+                },
+                {
+                    title: "Chief Operating Officer",
+                    company: "New Paradigm For Education",
+                    duration: "2012 - Sep 2018 · 6 yrs 9 mos",
+                    location: "Greater Detroit Area",
+                    description: "Collaborated with key internal stakeholders to ensure alignment of daily operations with the overall organizational goals. Shaped the expansion and mission of the network. Create a scalable and efficient business infrastructure to support the mission and growth of the network. Developed high level performance management systems. Served as a thought advisor and problem-solver to foster a positive culture of achievement across the network."
+                },
+                {
+                    title: "Director of School Operations",
+                    company: "David Elis Academy & David Ellis Academy West",
+                    duration: "Aug 1998 - Dec 2011 · 13 yrs 5 mos",
+                    location: "Metro Detroit",
+                    description: "Oversaw operational areas including compliance, curriculum, instruction, staffing, parent & community relations and reporting. School made continuous improvements under my leadership."
+                },
+                {
+                    title: "Adjunct Professor",
+                    company: "Oakland County Community College",
+                    duration: "Aug 1998 - Jun 2001 · 2 yrs 11 mos",
+                    location: "Michigan",
+                    description: "Developed syllabi for entry level composition course and ensured that it met college and department standards. Ran a writer's workshop for freshman and sophomore college students. Advised students about which classes to take and how to achieve their academic and professional goals. Kept abreast of innovative field changes."
+                }
+            ],
+            // Removed education, volunteering, and honorsAndAwards from profileData
+            skills: [
+                "Community Engagement", "Leadership Development", "Organizational Leadership", "Leadership",
+                "Operational Efficiency", "Communication", "Strategic Planning", "Budget Management",
+                "Fiscal Oversight", "Process Improvement", "Stakeholder Management", "Team Management",
+                "Equity-mindedness", "Performance Management", "Grant Writing", "Business Planning",
+                "Infrastructure Development", "Policy Alignment", "Problem-Solving", "Professional Development",
+                "Curriculum Development", "Instructional Leadership", "Staffing", "Parent & Community Relations",
+                "Reporting", "Program Management", "Planning Budgeting & Forecasting", "Cross-Functional Team Building",
+                "Organizational Development", "Team Collaboration"
+            ],
+            projects: [
+                {
+                    title: "Detroit Public Schools Community District Water Crisis",
+                    duration: "Sep 2018 - Jun 2019",
+                    description: "Routine drinking water test results in 2018 reported elevated lead levels. The District shut off all water sources consequently, schools were without water for student/staff consumption and kitchen operations. I reviewed baseline conditions, analyzed prior and future investments, defined creative solutions, prioritized the work needed, and installed over 600 filtered water hydration stations in all district buildings within 7 months. My plan and budget was used to generate over $2 million dollars in philanthropic funds to support the solution. The District now tests drinking water twice a year and changes filters to maintain clean safe water.",
+                    link: "https://www.linkedin.com/in/machion-jackson-79624224/detail/projects/1572978347432313344/"
+                },
+                {
+                    title: "School Reactivation",
+                    description: "I reopened 4 district buildings that were previously closed in support of the District's enrollment strategy. Renovations were completed in less than five months and each building opened on time for the school year. The multi-million dollar project also remained on budget.",
+                    link: "https://www.linkedin.com/in/machion-jackson-79624224/detail/projects/1572978347432313345/"
+                }
+            ],
+            presentations: [
+                "presentation/1651438538423.jpg", // 1686862630748.jpg
+                "presentation/1667568495326.jpg", // 1667568495326.jpg
+                "presentation/1667568495326.jpg", // 1666153779529.jpg
+                "presentation/1686862630748.jpg", // 1651438538423.jpg
+                "presentation/1744463329735.jpg"  // 1744463329735.jpg
+            ],
+            contact: {
+                linkedin: "https://www.linkedin.com/in/machion-jackson-79624224/",
+                email: "machion.jackson@example.com" // Placeholder email
+            }
+        };
+
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('#presentation-carousel .carousel-slide');
+            if (slides.length === 0) return;
+
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll('#presentation-carousel .carousel-slide');
+            if (slides.length === 0) return;
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function startCarousel() {
+            // Clear any existing interval to prevent multiple carousels running
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 3000); // Change image every 3 seconds
+        }
+
+        // Function to populate sections with data
+        function populateSections() {
+            // Hero Background Image
+            const heroHeader = document.querySelector('header');
+            if (heroHeader && profileData.heroBgImage) {
+                heroHeader.style.backgroundImage = `url('${profileData.heroBgImage}')`;
+            }
+
+            // Signature Offerings
+            const offeringsContent = document.getElementById('offerings-content');
+            if (offeringsContent) {
+                offeringsContent.innerHTML = ''; // Clear existing content
+                profileData.signatureOfferings.forEach(offering => {
+                    const div = document.createElement('div');
+                    div.className = 'flip-card-container';
+                    div.innerHTML = `
+                        <div class="flip-card-flipper">
+                            <div class="flip-card-front">
+                                <i data-lucide="${offering.icon}" class="text-nl-lightblue mb-6 w-12 h-12"></i>
+                                <h3 class="text-2xl font-semibold text-nl-darkblue mb-4">${offering.title}</h3>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 class="text-2xl font-semibold mb-4">${offering.title}</h3>
+                                <p>${offering.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    offeringsContent.appendChild(div);
+                });
+            }
+
+            // Experience
+            const experienceContent = document.getElementById('experience-content');
+            if (experienceContent) {
+                experienceContent.innerHTML = ''; // Clear existing content
+                profileData.experience.forEach(job => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white p-6 md:p-8 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300';
+                    div.innerHTML = `
+                        <h3 class="text-2xl font-semibold text-nl-darkblue mb-2">${job.title}</h3>
+                        <p class="text-lg text-gray-600 mb-1">${job.company}</p>
+                        <p class="text-md text-gray-500 mb-4">${job.duration} ${job.location ? `• ${job.location}` : ''}</p>
+                        <p class="text-gray-700 leading-relaxed whitespace-pre-line">${job.description}</p>
+                    `;
+                    experienceContent.appendChild(div);
+                });
+            }
+
+            // Projects
+            const projectsContent = document.getElementById('projects-content');
+            if (projectsContent) {
+                projectsContent.innerHTML = ''; // Clear existing content
+                profileData.projects.forEach(project => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white p-6 md:p-8 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition-shadow duration-300';
+                    div.innerHTML = `
+                        <h3 class="text-2xl font-semibold text-nl-darkblue mb-2">${project.title}</h3>
+                        ${project.duration ? `<p class="text-md text-gray-500 mb-4">${project.duration}</p>` : ''}
+                        <p class="text-gray-700 leading-relaxed whitespace-pre-line">${project.description}</p>
+                        ${project.link ? `
+                            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center mt-4 text-nl-lightblue hover:text-nl-darkblue font-medium transition-colors duration-200">
+                                Learn More
+                                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4 0V9m0-3h-3m3 3L9 15"></path>
+                                </svg>
+                            </a>` : ''
+                        }
+                    `;
+                    projectsContent.appendChild(div);
+                });
+            }
+
+            // Skills
+            const skillsContent = document.getElementById('skills-content');
+            if (skillsContent) {
+                skillsContent.innerHTML = ''; // Clear existing content
+                profileData.skills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.className = 'px-5 py-2 bg-nl-lightblue text-white rounded-full text-lg font-medium shadow-sm hover:bg-nl-darkblue transition-colors duration-200 cursor-default';
+                    span.textContent = skill;
+                    skillsContent.appendChild(span);
+                });
+            }
+
+            // Presentations Carousel
+            const presentationCarousel = document.getElementById('presentation-carousel');
+            if (presentationCarousel) {
+                presentationCarousel.innerHTML = ''; // Clear existing content
+                profileData.presentations.forEach(imageSrc => {
+                    const div = document.createElement('div');
+                    div.className = 'carousel-slide';
+                    div.innerHTML = `<img src="${imageSrc}" alt="Presentation Slide" onerror="this.onerror=null;this.src='https://placehold.co/800x450/cccccc/333333?text=Image+Not+Found';">`;
+                    presentationCarousel.appendChild(div);
+                });
+                showSlide(currentSlide); // Show the first slide
+                startCarousel(); // Start cycling through slides
+            }
+
+            // Render Lucide icons after content is injected
+            lucide.createIcons();
+        }
+
+        // JavaScript for mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu && closeMobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
+
+            closeMobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // When 10% of the section is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Optional: Stop observing once visible if you want the animation to happen only once
+                    // observer.unobserve(entry.target);
+                } else {
+                    // Optional: Remove is-visible class if you want elements to hide again when scrolled out
+                    // entry.target.classList.remove('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe each section
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize content and icons when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSections();
+            // Trigger initial observation for elements already in viewport
+            sections.forEach(section => {
+                if (section.getBoundingClientRect().top < window.innerHeight && section.getBoundingClientRect().bottom > 0) {
+                    section.classList.add('is-visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
