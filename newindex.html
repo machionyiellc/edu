@@ -135,14 +135,14 @@
             flex: 1;
             min-width: 300px; /* Ensure image doesn't get too small */
         }
+        .alternating-section-text {
+            flex: 1;
+        }
         .alternating-section-image img {
             width: 100%;
             height: auto;
             border-radius: 0.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        .alternating-section-text {
-            flex: 1;
         }
         .whitespace-pre-line {
             white-space: pre-line;
@@ -213,12 +213,12 @@
         .carousel-container {
             position: relative;
             width: 100%;
-            max-width: 600px; /* Adjusted to be smaller for a snug fit */
+            max-width: 800px; /* Adjust as needed */
             margin: 0 auto;
             overflow: hidden;
             border-radius: 0.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            height: 350px; /* Adjusted to be smaller for a snug fit */
+            height: 450px; /* Fixed height for the carousel container */
         }
 
         .carousel-slide {
@@ -239,27 +239,7 @@
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: contain; /* Ensures image fits entirely within the box */
-        }
-
-        /* Hero Background Carousel specific styles */
-        .hero-background-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .hero-background-slide.active {
-            opacity: 1;
-        }
-        .hero-background-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Changed to cover to fill the background without stretching */
-            display: block;
+            object-fit: contain; /* Changed from cover to contain */
         }
     </style>
 </head>
@@ -488,7 +468,7 @@
         const profileData = {
             name: "Machion Jackson",
             title: "Deputy Superintendent - Operations Detroit Public Schools Community District Strategist • Educator • Working to Build a Better Tomorrow",
-            bio: "At the helm of Detroit Public Schools' operations, my focus lies in steering strategic planning, direction, and supervision across departments critical to our educational mission. The responsibility for managing a general operating budget of $170 million and capital budgets totaling $823 million reflects my expertise in operation efficiency, budget management and fiscal oversight. With expertise that spans over two decades in leadership roles, my approach to fostering collaborative problem solving and process enhancement has been pivotal. Our team's efforts in community engagement and consensus building have empowered stakeholders, driving districts' visions for high-performing educational environments.",
+            bio: "At the helm of Detroit Public Schools' operations, my focus lies in steering strategic planning, direction, and supervision across departments critical to our educational mission. The responsibility for managing a general operating budget of $170 million and capital budgets totaling $823 million reflects my expertise in budget management and fiscal oversight. With a tenure that spans over five and a half years in leadership roles, my approach to fostering collaborative problem solving and process enhancement has been pivotal. Our team's efforts in community engagement and consensus building have empowered stakeholders, driving the district's vision for high-performing educational environments.",
             whatIDo: "I help school districts and charter networks solve persistent operational challenges, redesign outdated systems, and align facilities, capital programs, and central services with academic outcomes.",
             byTheNumbers: [
                 "Currently lead operations for district of 106 schools, 50,000 students - 78% economically disadvantaged | 82% African American | 14% Hispanic | 1.5% Asian/Pacific Islander | 11% English Language Learners | 15% Exceptional Learners/Special Education | 7200 staff members",
@@ -531,7 +511,7 @@
                 "1726024592033.jpg",
                 "image2.jpg",
                 "image0.jpg",
-                
+                "image.jpg"
             ],
             aboutImage1: "https://placehold.co/600x400/00a8e8/ffffff?text=Leadership+Vision", // About section image 1
             aboutImage2: "https://placehold.co/600x400/1a2b4b/ffffff?text=Data+Driven", // About section image 2
@@ -630,14 +610,9 @@
             const img = document.createElement('img');
             img.src = heroBackgroundImages[index];
             img.alt = "Hero Background";
-            img.className = 'hero-background-slide'; // Apply new class for hero background
+            img.className = 'absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out';
             img.onerror = function() { this.src = 'https://placehold.co/1920x1080/1a2b4b/ffffff?text=Background'; }; // Fallback
             heroCarousel.appendChild(img);
-
-            // Trigger transition by adding active class after a short delay
-            setTimeout(() => {
-                img.classList.add('active');
-            }, 50);
         }
 
         function nextHeroSlide() {
